@@ -58,6 +58,9 @@ internal fun IsolateHolderService.startLocatorService(context: Context) {
                 val args = mutableListOf<String>()
                 args.add(callbackHandle.toString())
                 val engineGroupCache = FlutterEngineGroupCache.getInstance()
+                if (engineGroupCache.contains("main")) {
+                    engineGroupCache.remove("main")
+                }
                 val engineGroup = engineGroupCache.get("main") ?: run {
                     val newEngineGroup = FlutterEngineGroup(this)
                     engineGroupCache.put("main", newEngineGroup)
